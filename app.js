@@ -13,6 +13,9 @@ app.post("/user", async (req, resp) => {
     return resp.json(user);
   } catch (err) {
     console.log(err);
+    if(err.name === "SequelizeValidationError"){
+      return resp.status(400).json(err.errors.message);
+    }
     return resp.status(500).json(err);
   }
 });
